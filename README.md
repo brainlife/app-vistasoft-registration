@@ -2,6 +2,33 @@
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.50-blue.svg)](https://doi.org/10.25663/bl.app.50)
 
 # app-vistasoft-registration
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+**Registers a DWI to a T1-weighted image with vistasoft (dtiRawAlignToT1), resamples it and rotates the bvecs.**
+
+Builds a b0 brain image with FSL select_dwi_vols and bet, aligns it to the T1 with vistasoft dtiRawAlignToT1, resamples the DWI with dtiRawResample and reorients the bvecs with dtiRawReorientBvecs. Use it to bring DWI into T1 (for example ACPC-aligned) space before tracking.
+
+Run it on brainlife.io: [https://doi.org/10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50)
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `dwi` | `neuro/dwi` | yes | The path to the DWI datatype |
+| `t1` | `neuro/anat/t1w` | yes | The path to the anat/t1w datatype |
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/dwi` | Aligned DWI with corrected bvectors and bvalues |
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `interpolation` | enum | `linear` | Interpolation for dtiRawResample: linear maps to [0 0 0 0 0 0], trilinear to [1 1 1 0 0 0] and spline to [7 7 7 0 0 0] (SPM-style interpolation codes). Options: `linear`, `trilinear`, `spline`. |
+| `resolution` | string |  | Output voxel size passed to dtiRawResample as a string (e.g. '2 2 2'); leave empty to keep the DWI's voxel size. |
+
+Runtime: container `brainlife/mcr:neurodebian1604-r2017a`.
+
+<!-- brainlife-app:end -->
+
 This app will register a DWI image to a T1w image and rotate the bvecs. First, a brainmask is created of from the DWI image using FSL's bet function by running the brainmask script. Then, the brainmask image is aligned to the T1 using Vistasoft's dtiRawAlignToT1 function. The transformation matrix from this is then used to resample the DWI image using Vistasoft's dtiRawResample function. Finally, the bvecs are rotated based on the transformation using Vistasoft's dtiRawReorientBvecs function. These last three steps are all performed by running the main script.
 
 ### Authors
