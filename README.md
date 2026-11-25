@@ -10,9 +10,9 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-> 📍 **This branch, `1.1`, is the brainlife.io App Register DWI to T1 using Vistasoft** ([doi:10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50)).
+> **This branch, `1.1`, is the brainlife.io App Register DWI to T1 using Vistasoft** ([doi:10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50)).
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -22,26 +22,26 @@ Builds a b0 brain image with FSL select_dwi_vols and bet, aligns it to the T1 wi
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/dwi` · `neuro/anat/t1w` |
-| 📤 **Outputs** | `neuro/dwi` |
-| 🐳 **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
-| 🔗 **Run it** | [doi.org/10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50) |
+| **Inputs** | `neuro/dwi` · `neuro/anat/t1w` |
+| **Outputs** | `neuro/dwi` |
+| **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
+| **Run it** | [doi.org/10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `dwi` | `neuro/dwi` | yes | The path to the DWI datatype |
 | `t1` | `neuro/anat/t1w` | yes | The path to the anat/t1w datatype |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `output` | `neuro/dwi` | Aligned DWI with corrected bvectors and bvalues |
 
 <details>
-<summary><b>⚙️ Parameters</b> (2)</summary>
+<summary><b>Parameters</b> (2)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -52,16 +52,16 @@ Builds a b0 brain image with FSL select_dwi_vols and bet, aligns it to the T1 wi
 
 <!-- brainlife-app:end -->
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50), choose a `neuro/dwi` dataset and a T1-weighted image (`neuro/anat/t1w`) from your project, set the options and press **Execute**. The App writes a `neuro/dwi` dataset tagged `t1_aligned` to your project, which can be used in any App that takes a DWI. Use it to bring DWI into T1 (for example ACPC-aligned) space before tracking.
 
 - **`interpolation`** (default `linear`): the interpolation used by `dtiRawResample`: `linear`, `trilinear` or `spline` (SPM-style codes `[0 0 0 0 0 0]`, `[1 1 1 0 0 0]` and `[7 7 7 0 0 0]`).
 - **`resolution`**: the output voxel size as a string, for example `"2 2 2"`. Leave it empty to keep the DWI's voxel size.
 
-### 🔬 How it works
+### How it works
 
 1. A b0 image is built from the DWI with FSL `select_dwi_vols` and skull-stripped with `bet` (brainmask script).
 2. The b0 brain image is aligned to the T1 with vistasoft `dtiRawAlignToT1`.
@@ -70,7 +70,7 @@ Open the App at [doi.org/10.25663/bl.app.50](https://doi.org/10.25663/bl.app.50)
 
 Steps 2–4 run as compiled MATLAB.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqlang.github.io/jq/). The App uses the `brainlife/fsl:5.0.9` and `brainlife/mcr:neurodebian1604-r2017a` containers.
 
@@ -96,7 +96,7 @@ You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqla
 
 To run the MATLAB code without Singularity you need [vistasoft](https://github.com/vistalab/vistasoft/), [SPM 8](https://www.fil.ion.ucl.ac.uk/spm/software/spm8/), [jsonlab](https://github.com/fangq/jsonlab) and FSL.
 
-### 🧪 Sample data
+### Sample data
 
 Download a T1-weighted image and a DWI from brainlife.io with the [brainlife CLI](https://github.com/brainlife/cli):
 
@@ -108,7 +108,7 @@ bl dataset download 5b96bbbf059cf900271924f2 && mv 5b96bbbf059cf900271924f2 inpu
 bl dataset download 5b96bbf2059cf900271924f3 && mv 5b96bbf2059cf900271924f3 input/dwi
 ```
 
-## 📦 Outputs
+## Outputs
 
 ```text
 dwi.nii.gz           DWI aligned and resampled to the T1
@@ -117,12 +117,12 @@ dwi.bvecs            bvecs rotated by the registration
 acpcTransform.mat    vistasoft transform from DWI to T1 space
 ```
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **`output missing`**: the b0 brain image (`nodif.nii.gz`) or the aligned `dwi.nii.gz` was not produced. Check that the bvals contain b=0 volumes and inspect the logs.
 - **`Interpolation method not defined`**: `interpolation` must be `linear`, `trilinear` or `spline`.
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -132,14 +132,14 @@ acpcTransform.mat    vistasoft transform from DWI to T1 space
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Brad Caron
 - Franco Pestilli (project director)
 
 **Contributors:** Soichi Hayashi
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -158,6 +158,6 @@ acpcTransform.mat    vistasoft transform from DWI to T1 space
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 MIT (see the [`LICENSE`](https://github.com/brainlife/app-vistasoft-registration/blob/1.1/LICENSE) file on the `1.1` branch). FSL is distributed under its own [license](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Licence).
